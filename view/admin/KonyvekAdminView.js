@@ -2,7 +2,7 @@ import KonyvAdminView from "./KonyvAdminView.js";
 
 class KonyvekAdminView {
   constructor(tomb, parent) {
-    parent.append(`<table><tr>
+    parent.html(`<table><tr>
     <td>id</td>
     <td>cim</td>
     <td>szerző</td>

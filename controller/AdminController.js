@@ -1,12 +1,32 @@
 import KonyvModel from "../model/KonyvModel.js";
-import KonyvekAdminView from "../view/KonyvekAdminView.js";
+import KonyvekAdminView from "../view/admin/KonyvekAdminView.js";
+import KonyvekPublicView from "../view/public/KonyvekPublicView.js";
 class AdminController {
   constructor() {
-    let konyvModel = new KonyvModel();
-    konyvModel.adatLekeres("../konyvek.json", this.konyvAdatok);
+    const konyvmodel = new KonyvModel();
+    $("#admin").on("click", () => {
+      konyvmodel.adatBe("../adat.json", this.konyvAdminAdatok);
+    });
+    $("#public").on("click", () => {
+      konyvmodel.adatBe("../adat.json", this.konyvPublicAdatok);
+    });
+
+    $(window).on("modosit", (event) => {
+      konyvmodel.adatModosit(event.detail);
+    });
+    $(window).on("torol", (event) => {
+      konyvmodel.adatTorol(event.detail);
+    });
+    $(window).on("veszem", (event) => {
+      konyvmodel.konyvVesz(event.detail);
+    });
   }
-  konyvAdatok(tomb) {
-    let konyvekAdminView = new KonyvekAdminView(tomb, $("main"));
+
+  konyvAdminAdatok(tomb) {
+    new KonyvekAdminView(tomb, $("main"));
+  }
+  konyvPublicAdatok(tomb) {
+    new KonyvekPublicView(tomb, $("main"));
   }
 }
 export default AdminController;

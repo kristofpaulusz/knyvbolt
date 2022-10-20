@@ -1,11 +1,12 @@
 class KonyvModel {
-  #konyvTabla;
+  #konyvekTomb = [];
+
   constructor() {
-    // console.log("KM példányosítva");
-    //adatok beolvasása
+    console.log("KonyvModel");
   }
-  adatLekeres(fajl, callBack) {
-    fetch(fajl, {
+
+  adatBe(vegpont, myCallBack) {
+    fetch(vegpont, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -13,12 +14,22 @@ class KonyvModel {
     })
       .then((response) => response.json())
       .then((data) => {
-        callBack(data.konyv);
-        this.#konyvTabla = data.konyv;
+        this.#konyvekTomb = data.konyv;
+        myCallBack(this.#konyvekTomb);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
-  getTabla() {
-    return this.#konyvTabla;
+  adatModosit(adat) {
+    console.log("MÓDOSÍT " + adat);
+  }
+  adatTorol(adat) {
+    console.log("TÖRÖLTEM: " + adat);
+  }
+  konyvVesz(adat) {
+    console.log("Vettem: " + adat);
   }
 }
+
 export default KonyvModel;
